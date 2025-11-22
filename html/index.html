@@ -1,0 +1,622 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dasturchilar uchun tezkor qo'llanma</title>
+    <style>
+      :root {
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        color-scheme: dark;
+        --bg: #05060c;
+        --panel: #101225;
+        --accent: #7c4dff;
+        --accent-soft: rgba(124, 77, 255, 0.18);
+        --text: #f5f7ff;
+        --muted: #9aa0c2;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: radial-gradient(circle at top, rgba(124, 77, 255, 0.25), transparent 60%),
+          var(--bg);
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+        padding: 40px 16px 120px;
+      }
+
+      .shell {
+        width: min(1200px, 96vw);
+        display: grid;
+        gap: 32px;
+      }
+
+      header {
+        background: linear-gradient(135deg, #0c0f27, #171a3a);
+        padding: 40px;
+        border-radius: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      header::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 25% 25%, rgba(124, 77, 255, 0.45), transparent 50%);
+        opacity: 0.6;
+        z-index: -1;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2.4rem, 5vw, 3.2rem);
+        letter-spacing: -0.03em;
+      }
+
+      p.lead {
+        margin: 0;
+        font-size: 1.1rem;
+        color: var(--muted);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 24px;
+      }
+
+      .card {
+        background: var(--panel);
+        padding: 24px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        box-shadow: 0 15px 40px rgba(7, 6, 21, 0.55);
+      }
+
+      .card h3 {
+        margin: 0;
+        font-size: 1.2rem;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        background: var(--accent-soft);
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .link-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 10px;
+      }
+
+      .link-list a {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .link-list small {
+        color: var(--muted);
+        display: block;
+        font-weight: 400;
+      }
+
+      .functions {
+        background: var(--panel);
+        border-radius: 24px;
+        padding: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        display: grid;
+        gap: 16px;
+      }
+
+      .functions header {
+        padding: 0;
+        background: none;
+        border: none;
+        box-shadow: none;
+      }
+
+      .functions header::after {
+        display: none;
+      }
+
+      .search {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .search input {
+        flex: 1;
+        min-width: 220px;
+        padding: 12px 16px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: #090b18;
+        color: var(--text);
+        font-size: 1rem;
+      }
+
+      .function-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .function-item {
+        padding: 16px;
+        border-radius: 16px;
+        background: #080b16;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        display: grid;
+        gap: 6px;
+      }
+
+      .function-item .name {
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+
+      .function-item .desc {
+        color: var(--muted);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(124, 77, 255, 0.18);
+        color: var(--accent);
+        font-size: 0.8rem;
+      }
+
+      @media (max-width: 640px) {
+        .functions {
+          padding: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <span class="badge">Dasturchilar qutisi</span>
+        <h1>Qayerdan olish &amp; qaysi funksiya nima qiladi?</h1>
+        <p class="lead">
+          Sizga kerakli kutubxonalar, APIlar va kod funksiyalarining vazifasi bo‘yicha
+          tezkor yo‘riqnoma. Qidirish bilan kerakli ma’lumotni soniyalarda toping.
+        </p>
+      </header>
+
+      <section class="grid">
+        <article class="card">
+          <h3>Frontend paketlari</h3>
+          <p>UI komponentlar, ikonalar va stil generatorlar qayerda joylashgan.</p>
+          <ul class="link-list">
+            <li>
+              <a href="https://npmjs.com" target="_blank" rel="noreferrer">npm Registry</a>
+              <small>Barcha JS paketlar, CLI bilan `npm install paket`.</small>
+            </li>
+            <li>
+              <a href="https://cdnjs.com" target="_blank" rel="noreferrer">CDNJS</a>
+              <small>CDN orqali React, Vue yoki ikonalar qo‘shish.</small>
+            </li>
+            <li>
+              <a href="https://ui.shadcn.com" target="_blank" rel="noreferrer">shadcn/ui</a>
+              <small>Tailwind asosida tayyor dizayn bloklari.</small>
+            </li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Backend vositalar</h3>
+          <p>API yozish, monitoring va ma’lumotlar bazasiga ulanishlar.</p>
+          <ul class="link-list">
+            <li>
+              <a href="https://www.postman.com" target="_blank" rel="noreferrer">Postman</a>
+              <small>REST va GraphQL endpointlarni sinash.</small>
+            </li>
+            <li>
+              <a href="https://supabase.com" target="_blank" rel="noreferrer">Supabase</a>
+              <small>Postgres, auth va storage bir joyda.</small>
+            </li>
+            <li>
+              <a href="https://railway.app" target="_blank" rel="noreferrer">Railway</a>
+              <small>Backend deploy va loglarni kuzatish.</small>
+            </li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Dokumentatsiya &amp; snippetlar</h3>
+          <p>Funksiyalarni tushunish va tayyor kod bo‘laklarini topish.</p>
+          <ul class="link-list">
+            <li>
+              <a href="https://developer.mozilla.org" target="_blank" rel="noreferrer">MDN Web Docs</a>
+              <small>JS, CSS va Web API’lar uchun rasmiy yo‘riqnoma.</small>
+            </li>
+            <li>
+              <a href="https://devdocs.io" target="_blank" rel="noreferrer">DevDocs</a>
+              <small>Offline qidiriladigan hujjatlar to‘plami.</small>
+            </li>
+            <li>
+              <a href="https://github.com/public-apis/public-apis" target="_blank" rel="noreferrer">Public APIs</a>
+              <small>Ochiq REST APIlar katalogi.</small>
+            </li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="functions">
+        <header>
+          <div class="badge">Funksiya izlash</div>
+          <h2>Funksiya nima qiladi?</h2>
+          <p class="lead">
+            Quyidagi ro‘yxatdagi funksiya yoki metod nomini kiriting, qisqa tarif va foydalanish
+            ssenariysini o‘qib oling.
+          </p>
+        </header>
+
+        <div class="search">
+          <input
+            type="search"
+            id="functionSearch"
+            placeholder="Masalan: debounce, useEffect, map..."
+            aria-label="Funksiya nomi bo‘yicha qidirish"
+          />
+        </div>
+
+        <div class="function-list" id="functionList"></div>
+      </section>
+    </main>
+
+    <script>
+      const functions = [
+        {
+          name: "debounce(fn, delay)",
+          tag: "Frontend",
+          desc:
+                "Qisqa vaqt ichida bir nechta chaqiruvlar bo‘lsa ham oxirgisini bajaradi. Input qidiruvlarida serverga keraksiz so‘rov yubormaslik uchun ishlatiladi.",
+        },
+    {
+      name: "print()",
+      tag: "Python",
+      desc: "Ekranga matn yoki o‘zgaruvchi qiymatini chiqaradi."
+    },
+    {
+      name: "len()",
+      tag: "Python",
+      desc: "Ro‘yxat, matn yoki boshqa iterable obyekt uzunligini qaytaradi."
+    },
+    {
+      name: "range()",
+      tag: "Python",
+      desc: "Takrorlash uchun sonlar ketma-ketligi generatsiya qiladi."
+    },
+    {
+      name: "input()",
+      tag: "Python",
+      desc: "Foydalanuvchidan klaviatura orqali ma’lumot qabul qiladi."
+    },
+    {
+      name: "def myFunc():",
+      tag: "Python",
+      desc: "Funktsiya yaratish — kodni qayta ishlatish imkonini beradi."
+    },
+    {
+      name: "lambda x: x * 2",
+      tag: "Python",
+      desc: "Anonim funksiyalar yaratish uchun qisqa sintaksis."
+    },
+    {
+      name: "for x in items:",
+      tag: "Python",
+      desc: "Ro‘yxat elementlari bo‘ylab takrorlash."
+    },
+    {
+      name: "try: ... except:",
+      tag: "Python",
+      desc: "Xatolarni ushlab dastur to‘xtab qolmasligini ta’minlaydi."
+    },
+    {
+      name: "open('file.txt')",
+      tag: "Python",
+      desc: "Faylni o‘qish yoki yozish uchun ochadi."
+    },
+    {
+      name: "json.loads()",
+      tag: "Python",
+      desc: "JSON matnni Python obyektga o‘tkazadi."
+    },
+    {
+      name: "json.dumps()",
+      tag: "Python",
+      desc: "Python obyektni JSON formatga aylantiradi."
+    },
+    {
+      name: "os.listdir()",
+      tag: "Python",
+      desc: "Katalog ichidagi fayllar ro‘yxatini qaytaradi."
+    },
+    {
+      name: "requests.get(url)",
+      tag: "Python",
+      desc: "HTTP GET so‘rov yuboradi va JSON yoki matn qaytaradi."
+    },
+    {
+      name: "flask.route()",
+      tag: "Backend",
+      desc: "Flask orqali API endpoint yaratadi."
+    },
+    {
+      name: "fastapi.get()",
+      tag: "Backend",
+      desc: "FastAPI’da GET endpoint yaratish uchun decorator."
+    },
+    {
+      name: "sqlite3.connect()",
+      tag: "Database",
+      desc: "SQLite bazasiga ulanish."
+    },
+    {
+      name: "pandas.DataFrame()",
+      tag: "Data",
+      desc: "Jadval ko‘rinishidagi ma’lumotni yaratish yoki o‘zgartirish."
+    },
+    {
+      name: "numpy.array()",
+      tag: "Data",
+      desc: "Matematik operatsiyalar uchun massiv yaratish."
+    },
+
+        {
+          name: "throttle(fn, step)",
+          tag: "Frontend",
+          desc:
+            "Ma’lum oraliqdan tez-tez event kelishini chegaralaydi. Scroll listener yoki oynaning o‘lchamini kuzatishda samarali.",
+        },
+        {
+          name: "useEffect(cb, deps)",
+          tag: "React",
+          desc:
+            "Komponent re-render bo‘lganda yon effektlarni bajaradi. API chaqiruvlar, event subscription yoki DOM bilan ishlash uchun.",
+        },
+        {
+          name: "prisma.user.findMany()",
+          tag: "Backend",
+          desc:
+            "Prisma ORM orqali `User` jadvalidan ma’lumot olish. Filtrlar, pagination va relatsiyalarni qo‘llab-quvvatlaydi.",
+        },
+        {
+          name: "fetch(url, opts)",
+          tag: "Web API",
+          desc:
+            "Brauzerdan HTTP so‘rov yuborish. Promise qaytaradi va JSON, text yoki blob formatlarida javobni o‘qish imkonini beradi.",
+        },
+        {
+          name: "supabase.auth.signInWithOtp()",
+          tag: "Auth",
+          desc:
+            "Supabase autentifikatsiyasi uchun email yoki SMS orqali bir martalik kod bilan kirishni yoqadi.",
+        },
+        {
+          name: "zod.object({ ... })",
+          tag: "Validation",
+          desc:
+            "Schema asosida ma’lumotlarni tekshiradi. API kiritmalari yoki formalarni xavfsiz qabul qilish uchun ishlatiladi.",
+        },
+        {
+          name: "app.get('/route')",
+          tag: "Express",
+          desc: "GET so‘rovlarga javob qaytarish uchun endpoint yaratadi."
+        },
+        {
+          name: "app.post('/route')",
+          tag: "Express",
+          desc: "POST orqali kelgan ma’lumotni qabul qilish."
+        },
+        {
+          name: "app.put('/route')",
+          tag: "Express",
+          desc: "Ma’lumotni yangilash uchun PUT endpoint."
+        },
+        {
+          name: "app.delete('/route')",
+          tag: "Express",
+          desc: "ID bo‘yicha ma’lumotni o‘chirish."
+        },
+
+        {
+            name: "docker compose up",
+            tag: "DevOps",
+            desc:
+            "Bir nechta servislarni (API, DB, worker) bitta buyruq bilan ishga tushiradi. Konteynerga asoslangan loyihalar uchun.",
+        },
+        {
+          name: "Array.map()",
+          tag: "JavaScript",
+          desc: "Massiv elementlari bo‘yicha yurib, yangi massiv qaytaradi."
+        },
+        {
+          name: "Array.filter()",
+          tag: "JavaScript",
+          desc: "Shartga mos keladigan elementlardan yangi massiv shakllantiradi."
+        },
+        {
+          name: "Array.reduce()",
+          tag: "JavaScript",
+          desc: "Massivni bitta qiymatga qisqartiradi (sum, count, merge)."
+        },
+        {
+          name: "console.time()",
+          tag: "Debug",
+          desc: "Kod blokining bajarilish vaqtini o‘lchaydi."
+        },
+        {
+          name: "try { } catch(e) { }",
+          tag: "JavaScript",
+          desc: "Xatolarni ushlab, dasturning to‘xtamasligi uchun ishlatiladi."
+        },
+        {
+          name: "setTimeout(fn, ms)",
+          tag: "Web API",
+          desc: "Funksiyani belgilangan vaqt o‘tishi bilan ishga tushiradi."
+        },
+        {
+          name: "setInterval(fn, ms)",
+          tag: "Web API",
+          desc: "Funksiyani belgilangan oraliqda takrorlab ishlatadi."
+        },
+        {
+          name: "localStorage.setItem()",
+          tag: "Web API",
+          desc: "Ma’lumotni brauzer xotirasiga saqlaydi."
+        },
+        {
+          name: "JSON.stringify()",
+          tag: "JavaScript",
+          desc: "JS obyektini JSON matnga aylantiradi."
+        },
+        {
+          name: "JSON.parse()",
+          tag: "JavaScript",
+          desc: "JSON matnni JS obyektga aylantiradi."
+        },
+        {
+          name: "useState()",
+          tag: "React",
+          desc: "Komponent ichida holat yaratish va yangilash."
+        },
+        {
+          name: "useRef()",
+          tag: "React",
+          desc: "DOM elementlarga murojaat yoki o‘zgarmas qiymatlar saqlash."
+        },
+        {
+          name: "useMemo()",
+          tag: "React",
+          desc: "Ogʻir hisob-kitoblarni keshlaydi va optimizatsiya qiladi."
+        },
+        {
+          name: "express.get('/route')",
+          tag: "Backend",
+          desc: "Express.js’da GET endpoint yaratish."
+        },
+        {
+          name: "mongoose.model()",
+          tag: "Database",
+          desc: "MongoDB uchun schema asosida model yaratish."
+        },
+        {
+          name: "JWT.sign()",
+          tag: "Auth",
+          desc: "Tokenga foydalanuvchi ma’lumotlarini joylab, uni imzolash."
+        },
+        {
+          name: "bcrypt.hash()",
+          tag: "Security",
+          desc: "Parollarni xavfsiz usulda xeshlash uchun."
+        },
+        {
+          name: "@Get()",
+          tag: "NestJS",
+          desc: "GET endpoint yaratadi."
+        },
+        {
+          name: "@Post()",
+          tag: "NestJS",
+          desc: "POST endpoint yaratadi."
+        },
+        {
+          name: "@Put()",
+          tag: "NestJS",
+          desc: "PUT endpoint yaratadi."
+        },
+        {
+          name: "@Delete()",
+          tag: "NestJS",
+          desc: "DELETE endpoint yaratadi."
+        },
+        {
+          name: "npm run dev",
+          tag: "Dev",
+          desc: "Loyihani developer rejimida ishga tushiradi."
+        },
+        {
+          name: "git clone <url>",
+          tag: "Git",
+          desc: "GitHub loyihasini kompyuterga ko‘chirib olish."
+        },
+        {
+          name: "git push",
+          tag: "Git",
+          desc: "O‘zgarishlarni GitHub’ga yuklaydi."
+        },
+        {
+          name: "docker build .",
+          tag: "DevOps",
+          desc: "Konteyner ichida ilovaning image’ini yaratadi."
+        },
+        {
+          name: "docker logs <id>",
+          tag: "DevOps",
+          desc: "Konteyner loglarini real vaqtda ko‘rish."
+        }
+
+          ];
+
+        const list = document.getElementById("functionList");
+        const search = document.getElementById("functionSearch");
+
+          const render = (query = "") => {
+        list.innerHTML = "";
+        const q = query.trim().toLowerCase();
+        const filtered = functions.filter(
+          (fn) => fn.name.toLowerCase().includes(q) || fn.desc.toLowerCase().includes(q)
+        );
+
+        if (!filtered.length) {
+          list.innerHTML =
+            '<div class="function-item"><p class="desc">Hech narsa topilmadi. Boshqa nom kiriting.</p></div>';
+          return;
+        }
+
+        filtered.forEach((fn) => {
+          const item = document.createElement("article");
+          item.className = "function-item";
+          item.innerHTML = `
+            <span class="pill">${fn.tag}</span>
+            <span class="name">${fn.name}</span>
+            <span class="desc">${fn.desc}</span>
+          `;
+          list.appendChild(item);
+        });
+      };
+
+      render();
+      
+      search.addEventListener("input", (e) => render(e.target.value));
+    </script>
+  </body>
+</html>
